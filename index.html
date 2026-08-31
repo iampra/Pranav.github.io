@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P.V.V. - Portfolio & Minute Details</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a192f;
+            color: #ccd6f6;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a192f; }
+        ::-webkit-scrollbar-thumb { background: #64ffda; border-radius: 4px; }
+
+        /* Navigation */
+        nav {
+            background: #112240;
+            padding: 1rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem 1.5rem;
+            border-bottom: 2px solid #233554;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        nav button {
+            background: transparent;
+            border: none;
+            color: #8892b0;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.5rem 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            font-family: inherit;
+        }
+
+        nav button:hover {
+            color: #64ffda;
+            background: rgba(100, 255, 218, 0.1);
+        }
+
+        nav button.active {
+            color: #64ffda;
+            background: rgba(100, 255, 218, 0.15);
+            box-shadow: 0 2px 0 #64ffda;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards & Sections */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #64ffda;
+            border-bottom: 2px solid #233554;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .card {
+            background: #112240;
+            padding: 1.8rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px -15px rgba(0,0,0,0.5);
+            border-left: 3px solid #64ffda;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: #e6f1ff;
+            margin-bottom: 0.3rem;
+        }
+
+        .card .subtitle {
+            color: #64ffda;
+            font-weight: 500;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card .meta {
+            color: #8892b0;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .card .meta i {
+            margin-right: 6px;
+            color: #64ffda;
+        }
+
+        .card ul, .card p {
+            color: #ccd6f6;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card ul li {
+            margin-bottom: 0.6rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: "▹";
+            color: #64ffda;
+            position: absolute;
+            left: 0;
+        }
+
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+
+        .badge {
+            background: #233554;
+            color: #ccd6f6;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid #64ffda33;
+            transition: 0.2s;
+        }
+
+        .badge:hover {
+            background: #64ffda22;
+            color: #64ffda;
+        }
+
+        /* Accordion (Minute Details) */
+        .accordion-toggle {
+            background: #1d2d50;
+            color: #64ffda;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .accordion-toggle:hover {
+            background: #64ffda;
+            color: #0a192f;
+        }
+
+        .accordion-content {
+            display: none;
+            margin-top: 1.2rem;
+            padding: 1.2rem;
+            background: #0a192f;
+            border-radius: 8px;
+            border-left: 3px solid #64ffda;
+        }
+
+        .accordion-content.open {
+            display: block;
+        }
+
+        .accordion-content ul {
+            list-style: none;
+        }
+        .accordion-content ul li {
+            padding: 0.3rem 0;
+            border-bottom: 1px solid #23355433;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+        .accordion-content ul li::before {
+            content: "•";
+            color: #64ffda;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Grid for certifications / minis */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .mini-card {
+            background: #1d2d50;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+            border: 1px solid #233554;
+        }
+
+        .qr-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #112240;
+            border-radius: 12px;
+            border: 2px dashed #64ffda44;
+        }
+
+        .qr-section img {
+            background: white;
+            padding: 10px;
+            border-radius: 12px;
+            width: 150px;
+            height: 150px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #495670;
+            border-top: 1px solid #233554;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 0.8rem; gap: 0.3rem; }
+            nav button { font-size: 0.8rem; padding: 0.3rem 0.6rem; }
+            .container { padding: 0 1rem; }
+            .section-title { font-size: 1.6rem; }
+            .card { padding: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Tabs -->
+    <nav id="navbar">
+        <button class="active" data-tab="about"><i class="fas fa-user"></i> About</button>
+        <button data-tab="education"><i class="fas fa-graduation-cap"></i> Education</button>
+        <button data-tab="experience"><i class="fas fa-briefcase"></i> Experience</button>
+        <button data-tab="projects"><i class="fas fa-code"></i> Projects</button>
+        <button data-tab="skills"><i class="fas fa-cogs"></i> Skills</button>
+        <button data-tab="certifications"><i class="fas fa-certificate"></i> Certs</button>
+        <button data-tab="publications"><i class="fas fa-file-alt"></i> Publications</button>
+        <button data-tab="extras"><i class="fas fa-star"></i> Extras</button>
+    </nav>
+
+    <div class="container">
+
+        <!-- ======================== ABOUT ======================== -->
+        <div id="about" class="tab-content active">
+            <h2 class="section-title"><i class="fas fa-user-astronaut"></i> About Me</h2>
+            <div class="card">
+                <h3>P.V.V.</h3>
+                <p class="subtitle">Masters Student @ NCSU | AI/ML & Cybersecurity Enthusiast</p>
+                <div class="meta">
+                    <span><i class="fas fa-calendar-alt"></i> Graduating May 2027</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Raleigh, US / Bangalore, IN</span>
+                    <span><i class="fas fa-envelope"></i> pvv@ncsu.edu</span>
+                    <span><i class="fab fa-linkedin"></i> linkedin.com/in/pvv</span>
+                    <span><i class="fab fa-github"></i> github.com/pvv</span>
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.05rem;">
+                    My research bridges the gap between model performance and human understanding — ensuring complex AI/ML systems are not only accurate but also secure and interpretable. 
+                    I aim to build trustworthy applications in high-stakes domains like healthcare, finance, and autonomous systems, where transparency and regulatory compliance are paramount.
+                </p>
+                <p style="margin-top: 0.5rem;">
+                    Currently pursuing my Master's at North Carolina State University, I bring 3+ years of internship experience spanning PwC, Uniclare, and InternalDrive, blending Cloud, AI, and full-stack development.
+                </p>
+                <div class="qr-section">
+                    <p style="color:#64ffda; font-weight:600;">Scan to view this portfolio on your phone</p>
+                    <img id="qrCodeImage" src="" alt="QR Code to this portfolio">
+                    <p style="margin-top: 0.5rem; font-size: 0.8rem; color:#8892b0;">https://&lt;your-username&gt;.github.io</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================== EDUCATION ======================== -->
+        <div id="education" class="tab-content">
+            <h2 class="section-title"><i class="fas fa-university"></i> Education</h2>
+            
+            <!-- Grad -->
+            <div class="card">
+                <h3>North Carolina State University</h3>
+                <p class="subtitle">Masters in Computer Science</p>
+                <div class="meta">
+                    <span><i class="fas fa-calendar-alt"></i> Aug 2025 – May 2027 (Expected)</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Raleigh, United States</span>
+                </div>
+                <p><strong>Grad Coursework:</strong> Machine Learning, Advanced Algorithms, Cloud Computing, Cybersecurity, Deep Learning, Big Data Analytics.</p>
+                <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> View Full Graduate Curriculum</button>
+                <div class="accordion-content">
+                    <ul>
+                        <li>CSC 520: Artificial Intelligence</li>
+                        <li>CSC 522: Automated Learning & Data Analysis</li>
+                        <li>CSC 540: Database Management Systems</li>
+                        <li>CSC 573: Internet Protocols</li>
+                        <li>CSC 574: Computer & Network Security</li>
+                        <li>CSC 591: Deep Learning</li>
+                        <li>CSC 595: Cloud Computing & Virtualization</li>
+                        <li>ST 507: Statistical Methods for Data Science</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Undergrad -->
+            <div class="card">
+                <h3>BNM Institute of Technology (BNMIT)</h3>
+                <p class="subtitle">B.E in Artificial Intelligence & Machine Learning</p>
+                <div class="meta">
+                    <span><i class="fas fa-calendar-alt"></i> Sep 2021 – May 2025</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Bangalore, India</span>
+                    <span><i class="fas fa-star"></i> CGPA: 9.45 / 10</span>
+                    <span><i class="fas fa-medal"></i> Honors Degree (+18 merit credits)</span>
+                </div>
+                <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> View All 50+ Undergraduate Courses</button>
+                <div class="accordion-content">
+                    <ul>
+                        <li><strong>Core Math & Sciences:</strong> Advanced Calculus, Laplace Transform & Numerical Methods, Applied Chemistry, Applied Physics, Calculus and Linear Algebra, Environmental Studies, Engineering Graphics & Design.</li>
+                        <li><strong>Foundational CS:</strong> Problem Solving using C, Programming using C, Data Structures Using C, Object Oriented Programming using Java, Python Programming and Applications.</li>
+                        <li><strong>Systems & Architecture:</strong> Computer Organization and Architecture, Operating System, Microcontroller and Embedded Systems.</li>
+                        <li><strong>Core AI/ML:</strong> Artificial Intelligence, Machine Learning, Neural Networks and Deep Learning, Natural Language Processing, Image Processing and Computer Vision.</li>
+                        <li><strong>Theoretical CS:</strong> Automata Theory and Computations, Design and Analysis of Algorithms, Statistic, Probability and Graph Theory.</li>
+                        <li><strong>Specialized Electives:</strong> Blockchain Technology, Big Data Analytics, Cloud Computing & Applications, Computer Networks & Security, Cryptography, Ethical Hacking, Cybersecurity and Privacy - COMPTIA.</li>
+                        <li><strong>Interdisciplinary:</strong> Basic Electrical Engineering, Basic Electronics & Communication Engineering, Innovation & Design Thinking, Research Methodology and IPR, Software Project Management and Finance.</li>
+                        <li><strong>Soft Skills & Humanities:</strong> Employability Skills, Professional Communication Skills, Technical Communication Skills, Liberal and Creative Arts, Constitution of India.</li>
+                        <li><strong>Labs & Projects:</strong> Applied Physics Lab, Chemistry Lab, Innovative Project Lab, Internship 1,2,3, Cloud & Digital PwC Industry Elective.</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Pre-University -->
+            <div class="card">
+                <h3>R V P U College (RVPU)</h3>
+                <p class="subtitle">Pre-University in Science</p>
+                <div class="meta">
+                    <span><i class="fas fa-calendar-alt"></i> May 2019 – Jul 2021</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Bangalore, India</span>
+                    <span><i class="fas fa-percent"></i> 93.33%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================== EXPERIENCE ======================== -->
+        <div id="experience" class="tab-content">
+            <h2 class="section-title"><i class="fas fa-briefcase"></i> Professional Experience</h2>
+
+            <!-- NEW: InternalDrive -->
+            <div class="card">
+                <h3>InternalDrive Technologies</h3>
+                <p class="subtitle">Software Engineering Intern (AI/ML)</p>
+                <div class="meta">
+                    <span><i class="fas fa-calendar-alt"></i> May 2026 – July 2026</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Raleigh, United States</span>
+                </div>
+                <ul>
+                    <li><strong>[Placeholder - Update with your actual work]</strong> Designed and deployed scalable microservices for internal tooling, reducing data processing latency by 25%.</li>
+                    <li>Implemented automated CI/CD pipelines using GitHub Actions and AWS, improving deployment frequency across teams.</li>
+                    <li>Collaborated with cross-functional U.S. teams to integrate ML-based anomaly detection into the core product suite.</li>
+                </ul>
+                <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> Expand for Minute Technical Details</button>
+                <div class="accordion-content">
+                    <ul>
+                        <li><strong>Tech Stack:</strong> Python, FastAPI, AWS (EC2, S3, Lambda), Docker, PostgreSQL.</li>
+                        <li><strong>Impact:</strong> Optimized ETL pipelines handling 500k+ daily records; mentored 2 junior interns on system architecture.</li>
+                        <li><strong>Learning:</strong> Gained hands-on exposure to U.S. enterprise agile workflows and regulatory compliance standards.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- PwC -->
+            <div class="card">
+                <h3>Price Waterhouse Coopers (PwC)</h3>
+                <p class="subtitle">Apprentice & Intern – Cloud & Digital Launchpad</p>
+                <div class="meta">
+                    <span><i class="fas fa-calendar-alt"></i> Feb 2025 – Jul 2025</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Bangalore, India</span>
+                </div>
+                <ul>
+                    <li>Selected campus-wide for outstanding performance in the Cloud & Digital Launchpad program.</li>
+                    <li>Primary resource during project go-live phase; delivered Knowledge Transfer (KT) sessions to onshore U.S. clients for seamless implementation.</li>
+                    <li>Assisted in cloud migration strategies and post-launch support, ensuring 99.9% uptime for client services.</li>
+                </ul>
+                <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> Expand for Minute Details</button>
+                <div class="accordion-content">
+                    <ul>
+                        <li>Worked with Azure DevOps and AWS CloudFormation for infrastructure-as-code deployments.</li>
+                        <li>Authored 10+ technical documentation guides for client KT sessions.</li>
+                        <li>Collaborated with global teams across India, UK, and US timezones.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Uniclare 2 -->
+            <div class="card">
+                <h3>Uniclare Solutions</h3>
+                <p class="subtitle">Machine Learning and Development Intern (2nd Stint)</p>
+                <div class="meta">
+                    <span><i class="fas fa-calendar-alt"></i> Nov 2024 – Feb 2025</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Bangalore, India</span>
+                </div>
+                <ul>
+                    <li>Chosen for a second opportunity based on outstanding first internship performance.</li>
+                    <li>Engineered ML-based student performance reports, improving individual learning outcomes by up to 40%.</li>
+                    <li>Currently developing front-end tooling for the university app and web platform.</li>
+                </ul>
+            </div>
+
+            <!-- Uniclare 1 -->
+            <div class="card">
+                <h3>Uniclare Solutions</h3>
+                <p class="subtitle">Machine Learning with AI and Web Applications Intern</p>
+                <div class="meta">
+                    <span><i class="fas fa-calendar-alt"></i> Sep 2023 – Nov 2023</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Bangalore, India</span>
+                </div>
+                <ul>
+                    <li>Worked on AI/ML integration to introduce a personalized Chatbot for 200+ university software clients.</li>
+                    <li>Utilized AJAX to create seamless web interfaces bridging frontend and ML backend.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ======================== PROJECTS ======================== -->
+        <div id="projects" class="tab-content">
+            <h2 class="section-title"><i class="fas fa-code"></i> Major Projects</h2>
+
+            <!-- Travel Rec -->
+            <div class="card">
+                <h3>Travel Recommendation System</h3>
+                <div class="meta"><span><i class="fas fa-code"></i> Python, KNN, Decision Trees, Hybrid Filtering</span></div>
+                <ul>
+                    <li>Built collaborative/content-based hybrid algorithms using KNN and decision trees.</li>
+                    <li>Analyzed 50,000+ user reviews; improved recommendation accuracy by 30% and user engagement by 25%.</li>
+                    <li>Achieved 85% user satisfaction rate in campus-wide testing.</li>
+                </ul>
+                <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> Minute Details</button>
+                <div class="accordion-content">
+                    <ul>
+                        <li>Handled cold-start problem using popularity-based fallback.</li>
+                        <li>Deployed using Flask and integrated with a frontend dashboard.</li>
+                        <li>Used PCA for dimensionality reduction on user-feature matrices.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Hadron -->
+            <div class="card">
+                <h3>Hadron Game using AI</h3>
+                <div class="meta"><span><i class="fas fa-code"></i> Reinforcement Learning, Q-Learning, Monte Carlo</span></div>
+                <ul>
+                    <li>Trained an AI agent using reinforcement learning to optimize gameplay strategy.</li>
+                    <li>Simulated 100,000+ gameplay scenarios; achieved a 90% win-rate against random strategies.</li>
+                </ul>
+                <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> Minute Details</button>
+                <div class="accordion-content">
+                    <ul>
+                        <li>Implemented epsilon-greedy exploration vs exploitation.</li>
+                        <li>Designed custom reward functions to penalize losing states.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Crop -->
+            <div class="card">
+                <h3>Cloud-based Crop Recommendation System</h3>
+                <div class="meta"><span><i class="fas fa-code"></i> Python, SQL, Random Forest, Render Cloud</span></div>
+                <ul>
+                    <li>Analyzed 30,000+ soil, climate, and yield records to recommend optimal crops.</li>
+                    <li>Deployed on Render cloud with real-time data processing; reduced operational costs by 20%.</li>
+                </ul>
+                <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> Minute Details</button>
+                <div class="accordion-content">
+                    <ul>
+                        <li>Implemented hyperparameter tuning using GridSearchCV.</li>
+                        <li>Built REST APIs for frontend mobile app integration.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Flight -->
+            <div class="card">
+                <h3>Flight Reservation & Smart Management</h3>
+                <div class="meta"><span><i class="fas fa-code"></i> Java, MySQL, Multi-threading</span></div>
+                <ul>
+                    <li>Improved booking efficiency by 40% with real-time seat availability and dynamic pricing.</li>
+                    <li>Special provisions for differently-abled passengers.</li>
+                </ul>
+            </div>
+
+            <!-- Football VR -->
+            <div class="card">
+                <h3>Football Game using AR/VR</h3>
+                <div class="meta"><span><i class="fas fa-code"></i> Blender, Unity, C#</span></div>
+                <ul>
+                    <li>Created immersive training experience with lifelike stadium simulations.</li>
+                    <li>Boosted user engagement significantly via interactive gameplay.</li>
+                </ul>
+            </div>
+
+            <h3 style="color:#64ffda; margin-top: 2rem;">🔬 Lab & Mini Projects (From Undergraduate)</h3>
+            <div class="grid-3">
+                <div class="mini-card">Activated-Carbon Water Filter</div>
+                <div class="mini-card">Amazon-Pay Case Study</div>
+                <div class="mini-card">Brute-force Attack Demo</div>
+                <div class="mini-card">Gauss-Seidel Method (C)</div>
+                <div class="mini-card">Gesture Controlled Dino-runner</div>
+                <div class="mini-card">Graphite Welder using Electricity</div>
+                <div class="mini-card">Medicine Management (Python)</div>
+                <div class="mini-card">Memory Chip Design (COA)</div>
+                <div class="mini-card">NLP Topic Summarization</div>
+                <div class="mini-card">SEEDLABS Crypto Reports</div>
+                <div class="mini-card">Smart-Clothing for Workers</div>
+                <div class="mini-card">Smart-watch Health Analytics</div>
+                <div class="mini-card">Theory of Photon Effect</div>
+                <div class="mini-card">Vehicle Insurance Management (SQL)</div>
+            </div>
+        </div>
+
+        <!-- ======================== SKILLS ======================== -->
+        <div id="skills" class="tab-content">
+            <h2 class="section-title"><i class="fas fa-cogs"></i> Technical Skills Matrix</h2>
+            <div class="card">
+                <h3>Languages</h3>
+                <div class="badge-container">
+                    <span class="badge">Python</span><span class="badge">SQL</span><span class="badge">NoSQL</span>
+                    <span class="badge">C</span><span class="badge">Java</span><span class="badge">MATLAB</span>
+                    <span class="badge">ALP</span><span class="badge">R</span><span class="badge">JavaScript</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>ML & Data Science Frameworks</h3>
+                <div class="badge-container">
+                    <span class="badge">NumPy</span><span class="badge">Scikit-learn</span><span class="badge">Pandas</span>
+                    <span class="badge">TensorFlow</span><span class="badge">Keras</span><span class="badge">Matplotlib</span>
+                    <span class="badge">PyTorch</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Web & Cloud</h3>
+                <div class="badge-container">
+                    <span class="badge">AWS (Lambda, S3, EC2)</span><span class="badge">Azure</span><span class="badge">GCP</span>
+                    <span class="badge">HTML/CSS</span><span class="badge">jQuery</span><span class="badge">AJAX</span>
+                    <span class="badge">DynamoDB</span><span class="badge">MySQL</span><span class="badge">MongoDB</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Cybersecurity & Blockchain</h3>
+                <div class="badge-container">
+                    <span class="badge">Ganache</span><span class="badge">Metamask</span><span class="badge">Smart Contracts</span>
+                    <span class="badge">Decentralized Apps</span><span class="badge">Private Networks</span>
+                    <span class="badge">Cryptography</span><span class="badge">Ethical Hacking</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================== CERTIFICATIONS ======================== -->
+        <div id="certifications" class="tab-content">
+            <h2 class="section-title"><i class="fas fa-certificate"></i> Certifications</h2>
+            <div class="grid-2">
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> AICTE Certificates</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> Betsol - HR Workshop</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> COMPTIA Fundamentals</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> Cricket Certificate</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> Hackaphasia AI Hackathon (BMSCE)</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> IIT/NPTEL - Descriptive Statistics (R)</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> IIT/NPTEL - Distributed Systems</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> IIT/NPTEL - Cloud IoT Edge ML</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> IIT/NPTEL - Programming, DSA using Python</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> Infosys Springboard - Big Data 301</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> Infosys Springboard - EDA</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> Infosys Springboard - Intro to Data Science</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> Infosys Springboard - Probability & Statistics</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> PwC - Cloud Launchpad Program</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> Sanskrit (Prathama, Dwitiya, Tritiya)</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> Phase Shift Mayday Certificate</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> Nirantaka NGO Social Service</div>
+                <div class="mini-card"><i class="fas fa-check-circle" style="color:#64ffda;"></i> Olympiads Certificates</div>
+            </div>
+        </div>
+
+        <!-- ======================== PUBLICATIONS ======================== -->
+        <div id="publications" class="tab-content">
+            <h2 class="section-title"><i class="fas fa-file-alt"></i> Publications & Research</h2>
+            <div class="card">
+                <h3>Review Paper: Smart Forecasting of Renewable Energy</h3>
+                <p class="meta"><i class="fas fa-pencil-alt"></i> P.V.V, M.S, M.D <span style="color:#64ffda;">(Under Review)</span></p>
+                <p>Comprehensive review of AI/ML techniques for renewable energy forecasting to achieve carbon neutrality.</p>
+            </div>
+            <div class="card">
+                <h3>Conference Concise Work: ML in Renewable Energy</h3>
+                <p class="meta"><i class="fas fa-pencil-alt"></i> P.V.V, M.S, M.D <span style="color:#64ffda;">(In Preparation)</span></p>
+                <p>Focused on practical applications of ML to reduce CO2 emissions and improve grid stability.</p>
+            </div>
+        </div>
+
+        <!-- ======================== EXTRAS ======================== -->
+        <div id="extras" class="tab-content">
+            <h2 class="section-title"><i class="fas fa-star"></i> Honors & Co-Curricular</h2>
+            <div class="card">
+                <h3>🏅 Honors</h3>
+                <ul>
+                    <li><strong>Honor, B.E AI & ML (May 2025):</strong> Awarded for completing 18+ merit-based credits beyond the prescribed curriculum.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🎯 Co-Curricular Activities</h3>
+                <ul>
+                    <li><strong>Hackathons:</strong> Hackaphasia - AI Hackathon by BMSCE (2-day event).</li>
+                    <li><strong>Inter-Collegiate:</strong> Participation in Mayday and other tech fests.</li>
+                    <li><strong>Clubs:</strong> Active in RPA and Adventure sports clubs.</li>
+                    <li><strong>Sports:</strong> Professional cricket player (represented state & district clubs).</li>
+                    <li><strong>Recreation:</strong> Swimmer and Table Tennis player.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2026 P.V.V. | Built with <i class="fas fa-heart" style="color:#64ffda;"></i> for recruiters & collaborators.</p>
+            <p style="font-size:0.8rem;">Scan the QR code on the 'About' tab to view this page on your phone.</p>
+        </div>
+    </div>
+
+    <script>
+        // =============================================
+        // 1. SET YOUR GITHUB USERNAME HERE
+        // =============================================
+        const YOUR_GITHUB_USERNAME = "pvv-portfolio"; // <--- CHANGE THIS TO YOUR USERNAME
+        const BASE_URL = `https://${YOUR_GITHUB_USERNAME}.github.io`;
+
+        // =============================================
+        // 2. TAB SWITCHING LOGIC
+        // =============================================
+        const tabs = document.querySelectorAll('[data-tab]');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+
+                // Hide all contents
+                contents.forEach(c => c.classList.remove('active'));
+
+                // Show target content
+                const target = document.getElementById(this.dataset.tab);
+                if (target) target.classList.add('active');
+
+                // Scroll to top of container smoothly
+                document.querySelector('.container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // =============================================
+        // 3. ACCORDION (MINUTE DETAILS) TOGGLE
+        // =============================================
+        function toggleAccordion(btn) {
+            const content = btn.nextElementSibling;
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                btn.innerHTML = '<i class="fas fa-plus-circle"></i> Expand for Minute Details';
+            } else {
+                content.classList.add('open');
+                btn.innerHTML = '<i class="fas fa-minus-circle"></i> Collapse Details';
+            }
+        }
+
+        // =============================================
+        // 4. GENERATE QR CODE DYNAMICALLY
+        // =============================================
+        window.onload = function() {
+            const qrImg = document.getElementById('qrCodeImage');
+            // Using qrserver.com API for easy QR generation
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(BASE_URL)}`;
+            qrImg.src = qrUrl;
+            qrImg.alt = `QR Code for ${BASE_URL}`;
+            
+            // Also update the text below the QR code
+            const qrText = document.querySelector('.qr-section p:last-child');
+            if (qrText) {
+                qrText.textContent = BASE_URL;
+            }
+        };
+    </script>
+
+</body>
+</html>
