@@ -244,6 +244,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 1rem;
+            margin-top: 0.8rem;
         }
 
         .grid-2 {
@@ -491,26 +492,27 @@
                 </ul>
             </div>
         </div>
+        
         <!-- ======================== PROJECTS ======================== -->
         <div id="projects" class="tab-content">
             <h2 class="section-title"><i class="fas fa-code"></i> Projects</h2>
         
             <!-- ==================== GRADUATE PROJECTS ==================== -->
-            <h3 style="color: #64ffda; margin-top: 2rem; border-bottom: 1px solid #233554; padding-bottom: 0.5rem;">Graduate Projects (NCSU)</h3>
+            <h3 style="color: #64ffda; margin-top: 2rem; border-bottom: 1px solid #233554; padding-bottom: 0.5rem;">Graduate Projects</h3>
         
             <!-- Cloud Microservices -->
             <div class="card">
                 <h3>Sustainable Grid Microservices Architecture</h3>
-                <div class="meta"><span><i class="fas fa-code"></i> Cloud Computing, Microservices, AWS/Azure/GCP</span></div>
+                <div class="meta"><span><i class="fas fa-code"></i> Cloud Computing, Microservices, AWS</span></div>
                 <ul>
                     <li>Designed a cloud architecture with microservices for a sustainable grid system.</li>
-                    <li>Made tradeoff decisions on service granularity, cloud provider selection, and communication protocols.</li>
+                    <li>Made tradeoff decisions on service granularity, cloud provider selection and communication protocols.</li>
                 </ul>
                 <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> View More Details</button>
                 <div class="accordion-content">
                     <ul>
                         <li>Evaluated tradeoffs between monolithic and microservices approaches for the specific use case.</li>
-                        <li>Compared AWS, Azure, and GCP for cost, latency, and scalability requirements.</li>
+                        <li>Compared AWS, Azure, and GCP for cost, latency and scalability requirements.</li>
                     </ul>
                 </div>
             </div>
@@ -580,23 +582,23 @@
             </div>
         
             <!-- ==================== UNDERGRADUATE PROJECTS ==================== -->
-            <h3 style="color: #64ffda; margin-top: 3rem; border-bottom: 1px solid #233554; padding-bottom: 0.5rem;">Undergraduate Projects (BNMIT)</h3>
+            <h3 style="color: #64ffda; margin-top: 3rem; border-bottom: 1px solid #233554; padding-bottom: 0.5rem;">Undergraduate Projects</h3>
         
             <!-- Travel Rec -->
             <div class="card">
                 <h3>Travel Recommendation System</h3>
                 <div class="meta"><span><i class="fas fa-code"></i> Python, KNN, Decision Trees, Hybrid Filtering</span></div>
                 <ul>
-                    <li>Built collaborative and content-based hybrid algorithms using KNN and decision trees.</li>
-                    <li>Analyzed 50,000+ user reviews and improved recommendation accuracy by 30% and user engagement by 25%.</li>
-                    <li>Achieved 85% user satisfaction rate in campus-wide testing.</li>
+                    <li>Built collaborative and content based hybrid algorithms using KNN and decision trees.</li>
+                    <li>Analyzed 50,000+ user reviews and improved recommendation accuracy by 30% and user engagement by about 25%.</li>
+                    <li>Achieved 85% user satisfaction rate in testing phase.</li>
                 </ul>
                 <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> View More Details</button>
                 <div class="accordion-content">
                     <ul>
-                        <li>Handled cold-start problem using popularity-based fallback.</li>
+                        <li>Handled cold start problem using popularity oriented fallback.</li>
                         <li>Deployed using Flask and integrated with a frontend dashboard.</li>
-                        <li>Used PCA for dimensionality reduction on user-feature matrices.</li>
+                        <li>Used PCA for dimensionality reduction on user feature matrices.</li>
                     </ul>
                 </div>
             </div>
@@ -607,12 +609,12 @@
                 <div class="meta"><span><i class="fas fa-code"></i> Reinforcement Learning, Q-Learning, Monte Carlo</span></div>
                 <ul>
                     <li>Trained an AI agent using reinforcement learning to optimize gameplay strategy.</li>
-                    <li>Simulated 100,000+ gameplay scenarios and achieved a 90% win-rate against random strategies.</li>
+                    <li>Simulated 10,000+ gameplay scenarios and achieved roughly 90% win-rate against random strategies.</li>
                 </ul>
                 <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> View More Details</button>
                 <div class="accordion-content">
                     <ul>
-                        <li>Implemented epsilon-greedy exploration vs exploitation.</li>
+                        <li>Implemented epsilon greedy exploration vs exploitation.</li>
                         <li>Designed custom reward functions to penalize losing states.</li>
                     </ul>
                 </div>
@@ -623,13 +625,13 @@
                 <h3>Cloud-based Crop Recommendation System</h3>
                 <div class="meta"><span><i class="fas fa-code"></i> Python, SQL, Random Forest, Render Cloud</span></div>
                 <ul>
-                    <li>Analyzed 30,000+ soil, climate, and yield records to recommend optimal crops.</li>
-                    <li>Deployed on Render cloud with real-time data processing and reduced operational costs by 20%.</li>
+                    <li>Analyzed 30,000+ soil, climate and yield records to recommend optimal crops.</li>
+                    <li>Deployed on Render cloud with real time data processing and reduced costs by 20%.</li>
                 </ul>
                 <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> View More Details</button>
                 <div class="accordion-content">
                     <ul>
-                        <li>Implemented hyperparameter tuning using GridSearchCV.</li>
+                        <li>Implemented hyperparameter tuning.</li>
                         <li>Built REST APIs for frontend mobile app integration.</li>
                     </ul>
                 </div>
@@ -640,8 +642,8 @@
                 <h3>Flight Reservation & Smart Management</h3>
                 <div class="meta"><span><i class="fas fa-code"></i> Java, MySQL, Multi-threading</span></div>
                 <ul>
-                    <li>Improved booking efficiency by 40% with real-time seat availability and dynamic pricing.</li>
-                    <li>Added special provisions for differently-abled passengers.</li>
+                    <li>Improved booking efficiency by 40% with seat availability and dynamic pricing.</li>
+                    <li>Added special provisions for differently abled passengers.</li>
                 </ul>
             </div>
         
@@ -656,17 +658,17 @@
             </div>
         
             <!-- ==================== LAB & MINI PROJECTS ==================== -->
-            <h3 style="color: #64ffda; margin-top: 3rem; border-bottom: 1px solid #233554; padding-bottom: 0.5rem;">Lab & Mini Projects (Undergraduate)</h3>
+            <h3 style="color: #64ffda; margin-top: 3rem; border-bottom: 1px solid #233554; padding-bottom: 0.5rem;">Lab & Mini Projects</h3>
             <div class="grid-3">
-                <div class="mini-card">Amazon-Pay Case Study</div>
+                <div class="mini-card">Amazon Pay Case Study</div>
                 <div class="mini-card">Brute-force Attack Demo</div>
-                <div class="mini-card">Gauss-Seidel Method (C)</div>
-                <div class="mini-card">Gesture Controlled Dino-runner</div>
+                <div class="mini-card">Gauss Seidel Method (C)</div>
+                <div class="mini-card">Gesture Controlled Dinorunner</div>
                 <div class="mini-card">Medicine Management (Python)</div>
                 <div class="mini-card">Memory Chip Design (COA)</div>
                 <div class="mini-card">NLP Topic Summarization</div>
                 <div class="mini-card">SEEDLABS Crypto Reports</div>
-                <div class="mini-card">Smart-watch Health Analytics</div>
+                <div class="mini-card">Smartwatch Health Analytics</div>
                 <div class="mini-card">Vehicle Insurance Management (SQL)</div>
             </div>
         </div>
