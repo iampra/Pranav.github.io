@@ -494,99 +494,99 @@
 
         <!-- ======================== PROJECTS ======================== -->
         <div id="projects" class="tab-content">
-            <h2 class="section-title"><i class="fas fa-code"></i> Major Projects</h2>
-
+            <h2 class="section-title"><i class="fas fa-code"></i> Projects</h2>
+        
+            <!-- ==================== GRADUATE PROJECTS ==================== -->
+            <h3 style="color: #64ffda; margin-top: 2rem; border-bottom: 1px solid #233554; padding-bottom: 0.5rem;">Graduate Projects (NCSU)</h3>
+        
+            <!-- Cloud Microservices -->
+            <div class="card">
+                <h3>Sustainable Grid Microservices Architecture</h3>
+                <div class="meta"><span><i class="fas fa-code"></i> Cloud Computing, Microservices, AWS/Azure/GCP</span></div>
+                <ul>
+                    <li>Designed a cloud architecture with microservices for a sustainable grid system.</li>
+                    <li>Made tradeoff decisions on service granularity, cloud provider selection, and communication protocols.</li>
+                </ul>
+                <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> View More Details</button>
+                <div class="accordion-content">
+                    <ul>
+                        <li>Evaluated tradeoffs between monolithic and microservices approaches for the specific use case.</li>
+                        <li>Compared AWS, Azure, and GCP for cost, latency, and scalability requirements.</li>
+                    </ul>
+                </div>
+            </div>
+        
+            <!-- DBMS Kidney -->
+            <div class="card">
+                <h3>Nutrient Management for Kidney Disease</h3>
+                <div class="meta"><span><i class="fas fa-code"></i> DBMS, SQL, Data Modeling</span></div>
+                <ul>
+                    <li>Built a database system to track and manage nutrient intake for kidney disease patients.</li>
+                    <li>Focused on data modeling and query optimization for patient records and dietary plans.</li>
+                </ul>
+            </div>
+        
+            <!-- Sparse Retrieval -->
+            <div class="card">
+                <h3>Sparse Retrieval Optimization</h3>
+                <div class="meta"><span><i class="fas fa-code"></i> Python, ColBERT, MS MARCO</span></div>
+                <ul>
+                    <li>Implemented and tested optimizations based on the ColBERT research paper to make sparse retrieval faster.</li>
+                    <li>Ran experiments on the MS MARCO dataset to evaluate performance improvements.</li>
+                </ul>
+                <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> View More Details</button>
+                <div class="accordion-content">
+                    <ul>
+                        <li>Focused on latency and accuracy tradeoffs in retrieval pipelines.</li>
+                        <li>Analyzed results against baseline sparse retrieval methods.</li>
+                    </ul>
+                </div>
+            </div>
+        
+            <!-- HCI Social Scaffolding -->
+            <div class="card">
+                <h3>Social Scaffolding Software Tool</h3>
+                <div class="meta"><span><i class="fas fa-code"></i> HCI, Python, Interaction Design</span></div>
+                <ul>
+                    <li>Developed a software tool for social scaffolding to help groups collaborate more effectively.</li>
+                    <li>Focused on structured interaction design to improve team communication and coordination.</li>
+                </ul>
+            </div>
+        
+            <!-- ResNet Game Genre -->
+            <div class="card">
+                <h3>Image Game Genre Classification</h3>
+                <div class="meta"><span><i class="fas fa-code"></i> Neural Networks, ResNet, Image Classification</span></div>
+                <ul>
+                    <li>Used ResNet architecture to classify video game genres from images.</li>
+                    <li>Worked on data preprocessing and model tuning for accurate genre prediction.</li>
+                </ul>
+            </div>
+        
+            <!-- Transformer Efficiency -->
+            <div class="card">
+                <h3>Efficiency in Transformers</h3>
+                <div class="meta"><span><i class="fas fa-code"></i> Deep Learning, Transformers, Model Optimization</span></div>
+                <ul>
+                    <li>Explored efficiency improvements in transformer architectures as part of a deep learning project.</li>
+                    <li>Investigated methods to reduce computational cost while maintaining model performance.</li>
+                </ul>
+                <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> View More Details</button>
+                <div class="accordion-content">
+                    <ul>
+                        <li>Studied attention mechanisms and their impact on efficiency.</li>
+                        <li>Compared different transformer variants for speed and accuracy tradeoffs.</li>
+                    </ul>
+                </div>
+            </div>
+        
+            <!-- ==================== UNDERGRADUATE PROJECTS ==================== -->
+            <h3 style="color: #64ffda; margin-top: 3rem; border-bottom: 1px solid #233554; padding-bottom: 0.5rem;">Undergraduate Projects (BNMIT)</h3>
+        
             <!-- Travel Rec -->
             <div class="card">
                 <h3>Travel Recommendation System</h3>
-                <div class="meta"><span><i class="fas fa-code"></i> Python, KNN, Decision Trees, Hybrid Filtering</span></div>
-                <ul>
-                    <li>Built collaborative/content-based hybrid algorithms using KNN and decision trees.</li>
-                    <li>Analyzed 50,000+ user reviews; improved recommendation accuracy by 30% and user engagement by 25%.</li>
-                    <li>Achieved 85% user satisfaction rate in campus-wide testing.</li>
-                </ul>
-                <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> Minute Details</button>
-                <div class="accordion-content">
-                    <ul>
-                        <li>Handled cold-start problem using popularity-based fallback.</li>
-                        <li>Deployed using Flask and integrated with a frontend dashboard.</li>
-                        <li>Used PCA for dimensionality reduction on user-feature matrices.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Hadron -->
-            <div class="card">
-                <h3>Hadron Game using AI</h3>
-                <div class="meta"><span><i class="fas fa-code"></i> Reinforcement Learning, Q-Learning, Monte Carlo</span></div>
-                <ul>
-                    <li>Trained an AI agent using reinforcement learning to optimize gameplay strategy.</li>
-                    <li>Simulated 100,000+ gameplay scenarios; achieved a 90% win-rate against random strategies.</li>
-                </ul>
-                <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> Minute Details</button>
-                <div class="accordion-content">
-                    <ul>
-                        <li>Implemented epsilon-greedy exploration vs exploitation.</li>
-                        <li>Designed custom reward functions to penalize losing states.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Crop -->
-            <div class="card">
-                <h3>Cloud-based Crop Recommendation System</h3>
-                <div class="meta"><span><i class="fas fa-code"></i> Python, SQL, Random Forest, Render Cloud</span></div>
-                <ul>
-                    <li>Analyzed 30,000+ soil, climate, and yield records to recommend optimal crops.</li>
-                    <li>Deployed on Render cloud with real-time data processing; reduced operational costs by 20%.</li>
-                </ul>
-                <button class="accordion-toggle" onclick="toggleAccordion(this)"><i class="fas fa-plus-circle"></i> Minute Details</button>
-                <div class="accordion-content">
-                    <ul>
-                        <li>Implemented hyperparameter tuning using GridSearchCV.</li>
-                        <li>Built REST APIs for frontend mobile app integration.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Flight -->
-            <div class="card">
-                <h3>Flight Reservation & Smart Management</h3>
-                <div class="meta"><span><i class="fas fa-code"></i> Java, MySQL, Multi-threading</span></div>
-                <ul>
-                    <li>Improved booking efficiency by 40% with real-time seat availability and dynamic pricing.</li>
-                    <li>Special provisions for differently-abled passengers.</li>
-                </ul>
-            </div>
-
-            <!-- Football VR -->
-            <div class="card">
-                <h3>Football Game using AR/VR</h3>
-                <div class="meta"><span><i class="fas fa-code"></i> Blender, Unity, C#</span></div>
-                <ul>
-                    <li>Created immersive training experience with lifelike stadium simulations.</li>
-                    <li>Boosted user engagement significantly via interactive gameplay.</li>
-                </ul>
-            </div>
-
-            <h3 style="color:#64ffda; margin-top: 2rem;">🔬 Lab & Mini Projects (From Undergraduate)</h3>
-            <div class="grid-3">
-                <div class="mini-card">Activated-Carbon Water Filter</div>
-                <div class="mini-card">Amazon-Pay Case Study</div>
-                <div class="mini-card">Brute-force Attack Demo</div>
-                <div class="mini-card">Gauss-Seidel Method (C)</div>
-                <div class="mini-card">Gesture Controlled Dino-runner</div>
-                <div class="mini-card">Graphite Welder using Electricity</div>
-                <div class="mini-card">Medicine Management (Python)</div>
-                <div class="mini-card">Memory Chip Design (COA)</div>
-                <div class="mini-card">NLP Topic Summarization</div>
-                <div class="mini-card">SEEDLABS Crypto Reports</div>
-                <div class="mini-card">Smart-Clothing for Workers</div>
-                <div class="mini-card">Smart-watch Health Analytics</div>
-                <div class="mini-card">Theory of Photon Effect</div>
-                <div class="mini-card">Vehicle Insurance Management (SQL)</div>
-            </div>
-        </div>
+                <div class="meta"><span><
 
         <!-- ======================== SKILLS ======================== -->
         <div id="skills" class="tab-content">
